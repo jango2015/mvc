@@ -1,9 +1,10 @@
 define([
     'jquery',
-    'mvc/view/MainView',
+    'backbone',
     'util/router',
+    'mvc/view/MainView',
     'app/menunav'
-], function($, MainView, Router, nav){
+], function($, Backbone, router, MainView, nav){
 	var NavView = MainView.extend({
 		el: $('body'),
 		slideSpeed: 200,
@@ -13,11 +14,12 @@ define([
 	    },
 	    initialize: function() {
 	    	nav.init($('.menu .sub-menu li.active'));
-	    	Router.init();
+	    	
+	    	Backbone.history.start();
 	    },
 		
 		foldMenu: function(e){
-			var $T = $(e.currentTarget);
+			var $T = $(e.target);
 			var SlideSpeed = this.slideSpeed;
 			var $P = $T.parent();
 			if($P.hasClass('active')){
@@ -42,7 +44,7 @@ define([
 		},
 		
 		routeMenu: function(e){
-			var $T = $(e.currentTarget);
+			var $T = $(e.target);
 			$('.menu .sub-menu > li').removeClass('active');
 			$T.addClass('active');
 			

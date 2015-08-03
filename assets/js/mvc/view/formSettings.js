@@ -11,6 +11,7 @@ define([
 		dt: null,
 	    events: {
 	    	'click #newFormBtn': 'addNewForm',
+	    	'click .datatable td a.edit-form': 'editForm',
 	    	'click .datatable td a.del-form': 'deleteForm'
 	    },
 
@@ -37,8 +38,19 @@ define([
 	    	utils.dialog($("#newFormDialog"));
 	    },
 	    
+	    editForm: function(){
+	    	utils.innerDialog($('#editFormDialog'), {
+	    		url: 'aaa',
+	    		container: this.$el,
+	    		data: {},
+	    		complete: function(){
+	    			
+	    		}
+	    	});
+	    },
+	    
 	    deleteForm: function(e){
-	    	var $T = $(e.currentTarget);
+	    	var $T = $(e.target);
 	    	var id = $T.data('id');
 	    	utils.popover({
 	    		title: '确定删除吗？',
@@ -47,11 +59,7 @@ define([
 	    			text: '确定',
 	    			clazz: 'btn-success',
 	    			click: function(){
-	    				utils.post('/assets/json/delform.json', {id: id}, $(this), {
-	    		    		success: function(resp){
-	    		    			
-	    		    		}
-	    		    	});
+	    				
 	    			}
 	    		}]
 	    	});

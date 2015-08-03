@@ -1,11 +1,20 @@
 define([
-    'backbone',
-    'util/router1',
-    'util/router2'
+    'backbone'
 ], function(Backbone){
-	return {
-		init: function(){
-			Backbone.history.start();
-		}
-	};
+	var Router = Backbone.Router.extend({
+		  routes: {
+			  '': 'init',
+			  'help': 'help'
+		  },
+		  
+		  init: function(){
+			  require(['mvc/view/formSettings'], function(){});
+		  },
+
+		  help: function(){
+			  
+		  }
+	});
+	
+	return new Router();
 });

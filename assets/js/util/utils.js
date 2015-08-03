@@ -86,6 +86,55 @@
 	    		}, 200);
 	    	});
 	    },
+	    innerDialog: function($D, opts){
+	    	var _utils = this,
+	    		$el = opts.container,
+	    		width = $el.get(0).clientWidth,
+	    		height = $el.get(0).clientHeight;
+	    	$el.css('overflow', 'hidden');
+	    	$D.css({
+	    		width: width,
+	    		height: height,
+    			left: '100%',
+    			top: 0
+	    	}).show();
+	    	
+	    	$D.find('[data-dismiss=true]').off('click').on('click', function(){
+	    		$D.css({
+	    			left: '100%',
+	    			opacity: 0
+	    		});
+	    		setTimeout(function(){
+	    			$D.hide();
+	    			$el.css('overflow', 'auto');
+	    		}, 200);
+	    	});
+	    	
+	    	setTimeout(function(){
+	    		$D.css({
+	    			left: 0,
+	    			opacity: 1
+	    		});
+	    		
+	    		_utils.get(opts.url, opts.data || {}, 'html', {
+	    			context: $D.find('.dialog-content'),
+	    			before: function(){
+	    				this.addClass('processing').css({
+	    					backgroundPosition: 'center 40%',
+	    					backgroundSize: 'initial'
+	    				});
+	    			},
+	    			success: function(resp){
+	    				this.html(resp);
+	    			},
+	    			complete: function(){
+	    				return false;
+	    				this.removeClass('processing');
+	    				opts.complete && opts.complete.call(this);
+	    			}
+	    		});
+	    	}, 10);
+	    },
 	    msg: function(opts){
 	    	var _opts = $.extend(true, {
 	    		text: '',
@@ -147,10 +196,10 @@
 	    		error: function(xhr, errorMsg, errObj){
 	    			console.log(errObj);
 	    			_this.msg({
-	    				text: errObj.message,
+	    				text: errObj,
 	    				type: 'error'
 	    			});
-	    			calls.error && calls.error.call(_context, errObj)
+	    			calls.error && calls.error.call(_context, errObj);
 	    		},
 	    		complete: function(xhr){
 	    			calls.complete && calls.complete.call(_context, xhr);
