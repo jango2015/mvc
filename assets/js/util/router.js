@@ -2,18 +2,29 @@ define([
     'backbone'
 ], function(Backbone){
 	var Router = Backbone.Router.extend({
-		  routes: {
-			  '': 'init',
-			  'help': 'help'
-		  },
-		  
-		  init: function(){
-			  require(['mvc/view/formSettings'], function(){});
-		  },
+		currentView: null,
+		routes: {
+			'': 'init',
+			'help': 'help'
+		},
+  
+		init: function(){
+			var _this = this;
+			require(['mvc/view/formSettings'], function(view){
+				_this.switchView(view);
+			});
+		},
+		
+		switchView: function(view){
+			if(this.currentView){
+				this.currentView.remove();
+			}
+			this.currentView = view;
+		},
 
-		  help: function(){
-			  
-		  }
+		help: function(){
+			//_this.switchView(view);
+		}
 	});
 	
 	return new Router();

@@ -4,6 +4,7 @@ define([
     'utils'
 ], function($, Backbone, utils){
 	var FormModel = Backbone.Model.extend({
+		idAttribute: 'id',
 		
 		initialize: function(){
 			

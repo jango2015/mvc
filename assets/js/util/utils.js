@@ -135,6 +135,9 @@
 	    			},
 	    			complete: function(){
 	    				this.removeClass('processing');
+	    				
+	    				$D.find('form').validate();
+	    				
 	    				opts.complete && opts.complete.call(this);
 	    			}
 	    		});

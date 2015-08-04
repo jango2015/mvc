@@ -2,7 +2,9 @@ define([
     'jquery',
     'backbone',
     'util/router',
-    'utils'
+    'utils',
+    'datatable',
+    'validate'
 ], function($, Backbone, Router, utils){
 	return Backbone.View.extend({
 		el: $('#MainCenter'),
@@ -21,6 +23,8 @@ define([
     	    		this.$el.html(resp);
 	    		},
 	    		complete: function(){
+	    			this.$el.find('form').validate();
+	    			
 	    			opts.complete && opts.complete.call(this);
 	    		}
 	    	});

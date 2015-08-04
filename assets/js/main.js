@@ -9,11 +9,16 @@ require.config({
 		'backbone': 'lib/backbone-min',
 		'utils': 'util/utils',
 		'datatable': 'plugin/datatable/js/datatable',
+		'lang': 'util/lang-zh_cn',
+		'validate': 'plugin/jquery-validate-form/js/jquery.validate.form',
 		'ztree': 'plugin/zTree_v3/js/jquery.ztree.core-3.5.min'
 	},
 	shim: {
-		'backbone': {
-			deps: ['jquery', 'underscore']
+		'validate': {
+			deps: ['jquery', 'lang']
+		},
+		'datatable': {
+			deps: ['jquery']
 		},
 		'ztree': {
 			deps: ['jquery'],

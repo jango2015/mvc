@@ -399,6 +399,7 @@
 
 				window.addEventListener( 'resize', onWindowResize, false );
 
+				console.log(camera)
 			}
 
 			function transform( targets, duration ) {
@@ -449,7 +450,7 @@
 				controls.update();
 				
 				t++;
-	            camera.position.set( 2000*Math.sin(t/180), 0, 1500);
+	            camera.position.set( 2000*Math.sin(t/180), 500, 2000*Math.cos(t/180));
 	            camera.lookAt( {x:0, y:0, z:0 } );
 	            renderer.render(scene, camera);
 			}

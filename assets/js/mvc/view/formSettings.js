@@ -4,6 +4,7 @@ define([
     'mvc/model/formSettings',
     'utils',
     'datatable',
+    'validate'
 ], function($, MainView, FormModel, utils, DataTable){
 	var FormView = MainView.extend({
 		url: '/assets/json/formview.html',
@@ -11,6 +12,7 @@ define([
 		dt: null,
 	    events: {
 	    	'click #newFormBtn': 'addNewForm',
+	    	'click .datatable td a.link-form': 'linkForm',
 	    	'click .datatable td a.edit-form': 'editForm',
 	    	'click .datatable td a.del-form': 'deleteForm'
 	    },
@@ -36,6 +38,17 @@ define([
 	    
 	    addNewForm: function(){
 	    	utils.dialog($("#newFormDialog"));
+	    },
+	    
+	    linkForm: function(){
+	    	utils.innerDialog($('#linkFormDialog'), {
+	    		url: '/assets/json/linkform.html',
+	    		container: this.$el,
+	    		data: {},
+	    		complete: function(){
+	    			
+	    		}
+	    	});
 	    },
 	    
 	    editForm: function(){
