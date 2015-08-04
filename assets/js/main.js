@@ -8,11 +8,16 @@ require.config({
 		'underscore': 'lib/underscore-min',
 		'backbone': 'lib/backbone-min',
 		'utils': 'util/utils',
-		'datatable': 'plugin/datatable/js/datatable'
+		'datatable': 'plugin/datatable/js/datatable',
+		'ztree': 'plugin/zTree_v3/js/jquery.ztree.core-3.5.min'
 	},
 	shim: {
 		'backbone': {
 			deps: ['jquery', 'underscore']
+		},
+		'ztree': {
+			deps: ['jquery'],
+			exports: '$.fn.zTree'
 		}
 	}
 });

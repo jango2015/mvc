@@ -40,7 +40,7 @@ define([
 	    
 	    editForm: function(){
 	    	utils.innerDialog($('#editFormDialog'), {
-	    		url: 'aaa',
+	    		url: '/assets/json/editform.html',
 	    		container: this.$el,
 	    		data: {},
 	    		complete: function(){

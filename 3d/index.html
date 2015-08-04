@@ -449,7 +449,8 @@
 				controls.update();
 				
 				t++;
-	            camera.position.set( 2000*Math.sin(t/90), 0, 1500);
+	            camera.position.set( 2000*Math.sin(t/180), 0, 1500);
+	            camera.lookAt( {x:0, y:0, z:0 } );
 	            renderer.render(scene, camera);
 			}
 

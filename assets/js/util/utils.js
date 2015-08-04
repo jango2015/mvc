@@ -76,7 +76,7 @@
 	    	$D.show();
 	    	setTimeout(function(){
 	    		$D.css('opacity', 1);
-	    		$D.find('.dialog-content').css('margin-top', '10%');
+	    		$D.find('.dialog-content').css('margin-top', '8%');
 	    	}, 10);
 	    	$D.find('[data-dismiss=true]').off('click').on('click', function(){
 	    		$D.css('opacity', 0);
@@ -88,18 +88,20 @@
 	    },
 	    innerDialog: function($D, opts){
 	    	var _utils = this,
-	    		$el = opts.container,
-	    		width = $el.get(0).clientWidth,
-	    		height = $el.get(0).clientHeight;
+	    		$el = opts.container;
 	    	$el.css('overflow', 'hidden');
+	    	
+	    	var	width = $el.get(0).clientWidth,
+	    		height = $el.get(0).clientHeight;
 	    	$D.css({
+	    		display: 'block',
 	    		width: width,
 	    		height: height,
     			left: '100%',
     			top: 0
-	    	}).show();
+	    	});
 	    	
-	    	$D.find('[data-dismiss=true]').off('click').on('click', function(){
+	    	$D.on('click', '[data-dismiss=true]', function(){
 	    		$D.css({
 	    			left: '100%',
 	    			opacity: 0
@@ -120,15 +122,18 @@
 	    			context: $D.find('.dialog-content'),
 	    			before: function(){
 	    				this.addClass('processing').css({
-	    					backgroundPosition: 'center 40%',
+	    					backgroundPosition: 'center 45%',
 	    					backgroundSize: 'initial'
 	    				});
 	    			},
 	    			success: function(resp){
 	    				this.html(resp);
+	    				$D.find('.dialog-body').css({
+	    		    		width: width,
+	    		    		height: height-40-55
+	    		    	});
 	    			},
 	    			complete: function(){
-	    				return false;
 	    				this.removeClass('processing');
 	    				opts.complete && opts.complete.call(this);
 	    			}
