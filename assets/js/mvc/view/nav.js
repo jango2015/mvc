@@ -45,12 +45,23 @@ define([
 		
 		routeMenu: function(e){
 			var $T = $(e.currentTarget);
-			$('.menu .sub-menu > li').removeClass('active');
-			$T.addClass('active');
-			
 			var url = $T.data('url');
-			if(url)
+			if(url){
+				$('.menu .sub-menu > li').removeClass('active');
+				$T.addClass('active');
+				
+				var top = $T.offset().top;
+				var _html = '<div class="loading-view"></div>';
+				if($('.loading-view').length === 0){
+					$('body').append(_html);
+				}
+				$('.loading-view').css({
+					display: 'block',
+					top: top + ($T.height()-$('.loading-view').height())/2
+				});
+				
 				router.navigate(url, {trigger: true});
+			}
 		}
 	});
 	

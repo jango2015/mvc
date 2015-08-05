@@ -25,6 +25,7 @@ define([
 	    		},
 	    		complete: function(){
 	    			this.$el.find('form').validate();
+	    			$('.loading-view').hide();
 	    			
 	    			opts.complete && opts.complete.call(this);
 	    		}

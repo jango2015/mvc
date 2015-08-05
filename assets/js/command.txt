@@ -1,1 +1,6 @@
-node r.js -o build.js
+yui:
+  java -jar yui.jar --type js --charset utf-8 -v src.js > packed.js
+  java -jar yui.jar --type css --charset utf-8 -v src.css > packed.css
+r.js:
+  node r.js -o build.js
+  node r.js -o cssIn=main.css out=main.min.css
