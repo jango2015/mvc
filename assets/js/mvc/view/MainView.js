@@ -1,11 +1,12 @@
 define([
     'jquery',
+    'underscore',
     'backbone',
     'util/router',
     'utils',
     'datatable',
     'validate'
-], function($, Backbone, Router, utils){
+], function($, _, Backbone, Router, utils){
 	return Backbone.View.extend({
 		el: $('#MainCenter'),
 		
@@ -30,8 +31,24 @@ define([
 	    	});
 	    },
 	    
-	    bindEvent: function(){
+	    bindOuterEvent: function(){
+	    	var events = _.result(this, 'outerEvents');
+	    	if(!events) return this;
 	    	
+	    	this.unbindOuterEvent();
+	        for(var key in events){
+	        	var method = events[key];
+	        	if (!_.isFunction(method)) method = this[events[key]];
+	        	if (!method) continue;
+	        	var match = key.match(/^(\S+)\s*(.*)$/);
+	        	$('body').on(match[1] + '.delegateEvents' + this.cid, match[2], _.bind(method, this));
+	        }
+	        return this;
+	    },
+	    
+	    unbindOuterEvent: function(){
+	    	$('body').off('.delegateEvents' + this.cid);
+	    	return this;
 	    }
 	});
 });

@@ -3,8 +3,7 @@ define([
     'mvc/view/MainView',
     'mvc/model/formSettings',
     'utils',
-    'datatable',
-    'validate'
+    'datatable'
 ], function($, MainView, FormModel, utils, DataTable){
 	var FormView = MainView.extend({
 		url: '/assets/json/formview.html',
@@ -17,7 +16,7 @@ define([
 	    	'click .datatable td a.del-form': 'deleteForm'
 	    },
 	    outerEvents: {
-	    	'click #saveNewFormBtn': 'saveFrom'
+	    	'click #saveNewFormBtn': 'saveForm'
 	    },
 
 	    initialize: function() {
@@ -26,6 +25,7 @@ define([
 	    			this.initTable();
 	    		}
 	    	});
+	    	this.bindOuterEvent();
 	    },
 	    
 	    initTable: function(){
@@ -90,5 +90,5 @@ define([
 	    }
 	});
 	
-	return new FormView;
+	return FormView;
 });

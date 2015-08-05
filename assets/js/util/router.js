@@ -5,25 +5,35 @@ define([
 		currentView: null,
 		routes: {
 			'': 'init',
-			'help': 'help'
-		},
-  
-		init: function(){
-			var _this = this;
-			require(['mvc/view/formSettings'], function(view){
-				_this.switchView(view);
-			});
+			'form(/)': 'init',
+			'user(/)': 'toUser',
+			'*defAction': 'defAction'
 		},
 		
 		switchView: function(view){
 			if(this.currentView){
+				this.currentView.unbindOuterEvent();
 				this.currentView.remove();
 			}
 			this.currentView = view;
 		},
-
-		help: function(){
-			//_this.switchView(view);
+  
+		init: function(){
+			var _this = this;
+			require(['mvc/view/formSettings'], function(View){
+				_this.switchView(new View);
+			});
+		},
+		
+		toUser: function(){
+			var _this = this;
+			require(['mvc/view/userManage'], function(View){
+				_this.switchView(new View);
+			});
+		},
+		
+		defAction: function(){
+			alert('页面未找到');
 		}
 	});
 	

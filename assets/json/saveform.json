@@ -1,6 +1,6 @@
 {
 	"code": 0,
-	"action": "alerterror",
+	"action": "alertok",
 	"msg": "保存成功！",
 	"data": null
 }

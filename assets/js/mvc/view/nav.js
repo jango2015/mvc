@@ -44,11 +44,13 @@ define([
 		},
 		
 		routeMenu: function(e){
-			var $T = $(e.target);
+			var $T = $(e.currentTarget);
 			$('.menu .sub-menu > li').removeClass('active');
 			$T.addClass('active');
 			
-			
+			var url = $T.data('url');
+			if(url)
+				router.navigate(url, {trigger: true});
 		}
 	});
 	

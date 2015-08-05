@@ -72,8 +72,14 @@
 	    		return el.getBoundingClientRect();
 	    	}
 	    },
+	    resetForm: function($F){
+	    	$F.find('.has-error,.has-success').removeClass('has-error has-success');
+	    	$F.find('.err-msg').remove();
+	    	if($F.length > 0) $F.get(0).reset();
+	    },
 	    dialog: function($D){
 	    	$D.show();
+	    	this.resetForm($D.find('form'));
 	    	setTimeout(function(){
 	    		$D.css('opacity', 1);
 	    		$D.find('.dialog-content').css('margin-top', '8%');
@@ -136,7 +142,9 @@
 	    			complete: function(){
 	    				this.removeClass('processing');
 	    				
-	    				$D.find('form').validate();
+	    				var _form = this.find('form');
+	    				_utils.resetForm(_form);
+	    				_form.validate();
 	    				
 	    				opts.complete && opts.complete.call(this);
 	    			}
@@ -219,7 +227,7 @@
 	    		Timeout = 3000;
 	    	$.ajax({
 	    		url: url,
-	    		type: 'post',
+	    		type: 'get',
 	    		dataType: 'json',
 	    		data: data || {},
 	    		context: $Btn,
@@ -271,6 +279,16 @@
 	    					$P.css('opacity', 0);
 	    					setTimeout(function(){
 	    						$P.remove();
+	    					}, 200);
+	    				}
+	    				
+	    				/* dialog */
+	    				var $D = _this.parents('.dialog').not('.dialog-insert');
+	    				if($D.length > 0){
+	    					$D.css('opacity', 0);
+	    					$D.find('.dialog-content').css('margin-top', 0);
+	    					setTimeout(function(){
+	    						$D.hide();
 	    					}, 200);
 	    				}
 	    			}
