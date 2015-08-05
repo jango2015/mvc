@@ -2,8 +2,21 @@ define([
     'jquery'
 ], function($){
 	return {
-		init: function($Active){
+		init: function(){
 			var _this = this;
+			var nav = $('.dy-nav');
+			
+			$('.menu .sub-menu > li').hover(function(){
+				$('.dy-nav').show();
+				var _offsetTop = $(this).offset().top;
+				$(nav).css('top', _offsetTop);
+			});
+			$('.menu .sub-menu').mouseout(function(){
+				_this.reset();
+			});
+		},
+		
+		active: function($Active){
 			if(!$Active){
 				return false;
 			}
@@ -17,16 +30,8 @@ define([
 				height: height,
 				top: offsetTop
 			});
-			
-			$('.menu .sub-menu > li').hover(function(){
-				$('.dy-nav').show();
-				var _offsetTop = $(this).offset().top;
-				$(nav).css('top', _offsetTop);
-			});
-			$('.menu .sub-menu').mouseout(function(){
-				_this.reset();
-			});
 		},
+		
 		reset: function(){
 			var nav = $('.dy-nav');
 			var _$A = $('.menu .sub-menu').find('.active');

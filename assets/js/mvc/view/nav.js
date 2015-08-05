@@ -13,7 +13,7 @@ define([
 	    	'click .menu .sub-menu > li': 'routeMenu'
 	    },
 	    initialize: function() {
-	    	nav.init($('.menu .sub-menu li.active'));
+	    	nav.init();
 	    	
 	    	Backbone.history.start();
 	    },

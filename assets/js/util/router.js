@@ -1,16 +1,24 @@
 define([
-    'backbone'
-], function(Backbone){
+    'jquery',
+    'backbone',
+    'app/menunav'
+], function($, Backbone, nav){
 	var Router = Backbone.Router.extend({
 		currentView: null,
 		routes: {
 			'': 'init',
 			'form(/)': 'init',
 			'user(/)': 'toUser',
-			'*defAction': 'defAction'
+			'*error': 'error'
 		},
 		
 		switchView: function(view){
+			var curRouter = location.hash;
+			var curLi = $('.menu').find('[data-url="'+curRouter+'"]');
+			curLi.parents('.has-sub-menu').addClass('active');
+			curLi.addClass('active');
+			nav.active(curLi);
+			
 			if(this.currentView){
 				this.currentView.unbindOuterEvent();
 				this.currentView.remove();
@@ -32,7 +40,7 @@ define([
 			});
 		},
 		
-		defAction: function(){
+		error: function(){
 			alert('页面未找到');
 		}
 	});
