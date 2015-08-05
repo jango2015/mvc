@@ -264,13 +264,22 @@
 	    						_this.removeClass('disabled processing').html(text);
 	    					}, Timeout+10);
 	    				}
+	    				
+	    				/* popover */
+	    				var $P = _this.parents('.popover');
+	    				if($P.length > 0){
+	    					$P.css('opacity', 0);
+	    					setTimeout(function(){
+	    						$P.remove();
+	    					}, 200);
+	    				}
 	    			}
 	    			calls.complete && calls.complete();
 	    		}
 	    	});
 	    },
 	    post: function(url, data, $Btn, calls){
-	    	this.ajax(url, data, $Btn, calls);
+	    	this.ajax(url, data, $Btn, calls || {});
 	    },
 	    serializFormData: function($F){
 	    	var _utils = this;
@@ -292,7 +301,7 @@
 	    	var _utils = this;
 	    	var data = _utils.serializFormData($(selector));
 	    	
-	    	this.ajax(url, data, $Btn, calls);
+	    	this.ajax(url, data, $Btn, calls || {});
 	    },
 	    encode: function(htmlStr){
 	        var s = '';
@@ -368,7 +377,7 @@
 	}
 	
 	if(typeof define === 'function' && define.amd){
-		define(['jquery'], function($){
+		define(['jquery'], function(){
 			return utils;
 		});
 		return false;

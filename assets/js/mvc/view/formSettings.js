@@ -16,6 +16,9 @@ define([
 	    	'click .datatable td a.edit-form': 'editForm',
 	    	'click .datatable td a.del-form': 'deleteForm'
 	    },
+	    outerEvents: {
+	    	'click #saveNewFormBtn': 'saveFrom'
+	    },
 
 	    initialize: function() {
 	    	this.render({
@@ -38,6 +41,12 @@ define([
 	    
 	    addNewForm: function(){
 	    	utils.dialog($("#newFormDialog"));
+	    },
+	    
+	    saveForm: function(e){
+	    	if($("#newForm").valid()){
+	    		this.model.save('#newForm', $(e.target));
+	    	}
 	    },
 	    
 	    linkForm: function(){
@@ -63,8 +72,9 @@ define([
 	    },
 	    
 	    deleteForm: function(e){
-	    	var $T = $(e.target);
-	    	var id = $T.data('id');
+	    	var _this = this,
+	    		$T = $(e.target);
+	    	var id = $T.data('id') || 'noid';
 	    	utils.popover({
 	    		title: '确定删除吗？',
 	    		context: $T,
@@ -72,7 +82,8 @@ define([
 	    			text: '确定',
 	    			clazz: 'btn-success',
 	    			click: function(){
-	    				
+	    				var $this = $(this);
+	    				_this.model._delete({id: id}, $this);
 	    			}
 	    		}]
 	    	});

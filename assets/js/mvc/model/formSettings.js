@@ -1,10 +1,11 @@
 define([
     'jquery',
-    'backbone',
+    'mvc/model/MainModel',
     'utils'
-], function($, Backbone, utils){
-	var FormModel = Backbone.Model.extend({
-		idAttribute: 'id',
+], function($, MainModel, utils){
+	var FormModel = MainModel.extend({
+		surl: '/assets/json/saveform.json',
+		durl: '/assets/json/delform.json',
 		
 		initialize: function(){
 			

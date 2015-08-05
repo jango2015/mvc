@@ -28,6 +28,10 @@ define([
 	    			opts.complete && opts.complete.call(this);
 	    		}
 	    	});
+	    },
+	    
+	    bindEvent: function(){
+	    	
 	    }
 	});
 });
