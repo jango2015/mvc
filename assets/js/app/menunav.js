@@ -17,7 +17,7 @@ define([
 		},
 		
 		active: function($Active){
-			if(!$Active){
+			if($Active.length === 0){
 				return false;
 			}
 			var nav = $('.dy-nav');
@@ -35,8 +35,10 @@ define([
 		reset: function(){
 			var nav = $('.dy-nav');
 			var _$A = $('.menu .sub-menu').find('.active');
-			var _offsetTop = _$A.offset().top;
-			$(nav).css('top', _offsetTop);
+			if(_$A.length > 0){
+				var _offsetTop = _$A.offset().top;
+				$(nav).css('top', _offsetTop);
+			}
 		}
 	};
 });

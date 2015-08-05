@@ -13,8 +13,13 @@ define([
 		},
 		
 		switchView: function(view){
-			var curRouter = location.hash;
-			var curLi = $('.menu').find('[data-url="'+curRouter+'"]');
+			var curRouter = location.hash,
+				curLi;
+			if(curRouter === ''){
+				curLi = $('.menu').find('[data-url="#/form"]');
+			} else {
+				curLi = $('.menu').find('[data-url="'+curRouter+'"]');
+			}
 			curLi.parents('.has-sub-menu').addClass('active');
 			curLi.addClass('active');
 			nav.active(curLi);
