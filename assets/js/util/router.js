@@ -25,8 +25,10 @@ define([
 			nav.active(curLi);
 			
 			if(this.currentView){
-				this.currentView.unbindOuterEvent();
-				this.currentView.remove();
+				var _curView = this.currentView;
+				_curView.unbindOuterEvent();
+				_curView.undelegateEvents();
+				_curView.remove();
 			}
 			this.currentView = view;
 		},
@@ -34,14 +36,16 @@ define([
 		init: function(){
 			var _this = this;
 			require(['mvc/view/formSettings'], function(View){
-				_this.switchView(new View);
+				var view = new View;
+				_this.switchView(view);
 			});
 		},
 		
 		toUser: function(){
 			var _this = this;
 			require(['mvc/view/userManage'], function(View){
-				_this.switchView(new View);
+				var view = new View;
+				_this.switchView(view);
 			});
 		},
 		
