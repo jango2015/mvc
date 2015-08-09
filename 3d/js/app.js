@@ -203,5 +203,14 @@ $(function(){
 			}
 		}, 4);
 	}, 5000);
+	
+	setInterval(function(){
+		var idx = Math.floor(Math.random()*25)+1;
+		var $I = $('<img src="avatar/a'+idx+'.jpg">');
+		$('body').append($I);
+		setTimeout(function(){
+			$I.addClass('img-animate');
+		}, 10);
+	}, 3000);
 });
 

@@ -30,6 +30,24 @@
 			box-shadow:0 0 12px rgba(0,255,255,0.75);
 			border:1px solid rgba(127,255,255,0.75)
 		}
+		body > img {
+			position:absolute;
+			display:block;
+			width:120px;
+			height:160px;
+			left:50%;
+			top:30%;
+			margin-left:-60px;
+			visibility:hidden;
+		}
+		@-webkit-keyframes img_animate {
+			0% { visibility:visible; }
+			50% { opacity:1;left:50%;top:30%;width:120px;height:160px;transform:none; }
+			100% { width:20px;height:30px;opacity:0;left:60%;top:20%;transform:rotateY(360deg); }
+		}
+		.img-animate {
+			-webkit-animation: img_animate 3s linear;
+		}
 	</style>
 </head>
 <body>
