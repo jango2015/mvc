@@ -4,7 +4,7 @@ var table = [
     {x:6, y:1}, {x:7, y:1}, {x:8, y:1}, {x:14, y:1}, {x:15, y:1},
     {x:1, y:2}, {x:2, y:2}, {x:3, y:2}, {x:4, y:2}, {x:5, y:2},
     {x:6, y:2}, {x:7, y:2}, {x:8, y:2}, {x:13, y:2}, {x:14, y:2},
-    {x:15, y:2}, {x:6, y:3}, {x:7, y:3}, {x:14, y:3}, {x:15, y:3},
+    {x:15, y:2}, {x:6, y:3}, {x:7, y:3}, {x:8, y:3}, {x:14, y:3}, {x:15, y:3},
     {x:7, y:4}, {x:8, y:4}, {x:14, y:4}, {x:15, y:4}, {x:7, y:5},
     {x:8, y:5}, {x:14, y:5}, {x:15, y:5}, {x:6, y:6}, {x:7, y:6},
     {x:8, y:6}, {x:14, y:6}, {x:15, y:6}, {x:1, y:7}, {x:2, y:7},
@@ -126,28 +126,6 @@ function init() {
 	controls.maxDistance = 6000;
 	controls.addEventListener( 'change', render );
 	
-	var button = document.getElementById( 'table' );
-	button.addEventListener( 'click', function ( event ) {
-		transform( targets.table, 2000 );
-	}, false );
-
-	var button = document.getElementById( 'sphere' );
-	button.addEventListener( 'click', function ( event ) {
-		transform( targets.sphere, 2000 );
-	}, false );
-
-	var button = document.getElementById( 'helix' );
-	button.addEventListener( 'click', function ( event ) {
-		transform( targets.helix, 2000 );
-	}, false );
-
-	var button = document.getElementById( 'grid' );
-	button.addEventListener( 'click', function ( event ) {
-		transform( targets.grid, 2000 );
-	}, false );
-
-	transform( targets.table, 2000 );
-
 	window.addEventListener( 'resize', onWindowResize, false );
 }
 
@@ -184,7 +162,9 @@ function onWindowResize() {
 	render();
 }
 
-var t = 0;
+var y = 400,
+	MaxRange = 2500,
+	t = 0;
 function animate() {
 	requestAnimationFrame( animate );
 
@@ -193,7 +173,7 @@ function animate() {
 	controls.update();
 	
 	t++;
-    camera.position.set( 2000*Math.sin(t/180), 400, 2000*Math.cos(t/180));
+    camera.position.set( MaxRange*Math.sin(t/180), y, MaxRange*Math.cos(t/180));
     camera.lookAt( {x:0, y:0, z:0 } );
     renderer.render(scene, camera);
 }
@@ -201,4 +181,27 @@ function animate() {
 function render() {
 	renderer.render( scene, camera );
 }
+
+$(function(){
+	var effects = [
+	    { type: 'table', range: 4400 },
+		{ type: 'sphere', range: 2400 },
+		{ type: 'helix', range: 2200 },
+		{ type: 'grid', range: 2400 }
+	];
+	var innerTimer = null;
+	setInterval(function(){
+		clearInterval(innerTimer);
+		var randomEffect = effects[Math.floor(Math.random()*effects.length)];
+		transform( targets[randomEffect.type], 2400 );
+		
+		innerTimer = setInterval(function(){
+			if(MaxRange > randomEffect.range){
+				MaxRange -= 5;
+			} else if (MaxRange < randomEffect.range){
+				MaxRange += 5;
+			}
+		}, 4);
+	}, 5000);
+});
 
